@@ -1,0 +1,135 @@
+
+.flipOverCounter {
+    .focount_set {
+        float: left;
+        border-radius: 10px;
+        position: relative;
+        .focount {
+            position: absolute;
+            height: 100%;
+            >div {
+                position: absolute;
+                left: 0;
+                overflow: hidden;
+                height: 50%;
+                text-align: center;
+            }
+            .focount_top,
+            .shadow_top {
+                box-sizing: border-box;
+                top: 0;
+                z-index: 0;
+                border-radius: 10px 10px 0 0;
+            }
+            .focount_bottom,
+            .shadow_bottom {
+                bottom: 0;
+                z-index: 0;
+            }
+            .focount_wrap {
+                display: block;
+                overflow: hidden;
+            }
+        }
+    }
+    .focount_box {
+        float: left;
+        position: relative
+    }
+    .dotBox {
+        float: left;
+    }
+    .dot {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes flipTop {
+    0% {
+        transform: perspective(700px) rotateX(0deg);
+    }
+    100% {
+        transform: perspective(700px) rotateX(-90deg);
+    }
+}
+
+@keyframes flipBottom {
+    0% {
+        transform: perspective(700px) rotateX(90deg);
+    }
+    100% {
+        transform: perspective(700px) rotateX(0deg);
+    }
+}
+
+.flipOverCounter.normal {
+    .previous {
+        .focount_top,
+        .shadow_top {
+            opacity: 1;
+            z-index: 2;
+            transform-origin: 50% 100%;
+            animation: flipTop 0.4s ease-in both;
+        }
+        .focount_bottom,
+        .shadow_bottom {
+            z-index: 1;
+            opacity: 1;
+        }
+    }
+    .active {
+        .focount_top {
+            z-index: 1;
+        }
+        .focount_bottom {
+            z-index: 2;
+            transform-origin: 50% 0%;
+            animation: flipBottom 0.4s 0.4s ease-out both;
+        }
+    }
+    .shadow_bottom {
+        opacity: 0;
+        transition: opacity 0.4s ease-in;
+    }
+    .shadow_top {
+        width: 665px;
+        opacity: 0;
+        transition: opacity 0.4s ease-in;
+    }
+}
+
+.flipOverCounter.quick {
+    .previous {
+        .focount_top,
+        .shadow_top {
+            opacity: 1;
+            z-index: 2;
+            transform-origin: 50% 100%;
+            animation: flipTop 0.1s ease-in both;
+        }
+        .focount_bottom,
+        .shadow_bottom {
+            z-index: 1;
+            opacity: 1;
+        }
+    }
+    .active {
+        .focount_top {
+            z-index: 1;
+        }
+        .focount_bottom {
+            z-index: 2;
+            transform-origin: 50% 0%;
+            animation: flipBottom 0.1s 0.1s ease-out both;
+        }
+    }
+    .shadow_bottom {
+        opacity: 0;
+        transition: opacity 0.1s ease-in;
+    }
+    .shadow_top {
+        width: 665px;
+        opacity: 0;
+        transition: opacity 0.1s ease-in;
+    }
+}

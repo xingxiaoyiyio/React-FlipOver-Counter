@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
+import TotalQty from './components/TotalQty'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        test
-      </div>
-    );
-  }
+
+    render() {
+
+        return (
+            <TotalQty />
+        )
+
+
+    }
 }
 
 export default App;
