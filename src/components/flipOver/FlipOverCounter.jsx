@@ -2,29 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './flipOverCounter.less'
 
-// 日期格式化
-Date.prototype.format = function (format) {
-    var o = {
-        "M+": this.getMonth() + 1, //month
-        "D+": this.getDate(), //day
-        "H+": this.getHours(), //hour
-        "m+": this.getMinutes(), //minute
-        "s+": this.getSeconds(), //second
-        //quarter
-        "q+": Math.floor((this.getMonth() + 3) / 3),
-        "S": this.getMilliseconds() //millisecond
-    };
-    if (/(Y+)/.test(format)) format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o) {
-        if (new RegExp("(" + k + ")").test(format)) {
-            format = format.replace(
-                RegExp.$1, RegExp.$1.length == 1 ?
-                    o[k] : ("00" + o[k]).substr(("" + o[k]).length));
-        }
-    }
-    return format;
-};
-
 export class FlipOverCounter extends Component {
 
     constructor(props) {
@@ -42,8 +19,6 @@ export class FlipOverCounter extends Component {
 
     componentDidMount() {
         this.resetNo()
-        this.run();
-
     }
 
     //补0
@@ -56,7 +31,9 @@ export class FlipOverCounter extends Component {
     resetNo() {
         const { min } = this.state;
         const currentNums = this.zfill(min)
-        this.setState({ currentNums })
+        this.setState({ currentNums }, function () {
+            this.run()
+        })
     }
 
     //初始化执行
@@ -111,22 +88,17 @@ export class FlipOverCounter extends Component {
                     max: props.max,
                     time: props.time,
                     len: props.len
+                }, function () {
+                    this.resetNo()
                 })
-                this.resetNo()
-                this.run();
             }
-            const ths = this
-            this.timeout1 = setTimeout(function () {
-                ths.resetNo()
-                ths.run();
-            }, 30)
         }
     }
 
     render() {
         const { len, currentNums } = this.state;
         const flipItems = currentNums.map((value, idx) => {
-            let preIndx = value === 0 ? 9 : value * 1 - 1;
+            let preIndx = value === "0" ? 9 : value * 1 - 1;
             return (
                 <div key={idx} className='focount_box'>
                     <div className="focount_set" >
