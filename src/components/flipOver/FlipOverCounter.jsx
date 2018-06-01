@@ -84,7 +84,7 @@ export class FlipOverCounter extends Component {
         if (Object.keys(props)) {
             if (props.max !== this.state.max) {
                 this.setState({
-                    min: props.min,
+                    min: props.min>props.max ? max : props.min,
                     max: props.max,
                     time: props.time,
                     len: props.len
